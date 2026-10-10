@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Cartoon World</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    background:#0b0d12;
+    color:#fff;
+    font-family:Arial,sans-serif;
+}
+
+/* HEADER */
+header{
+    background:#151821;
+    padding:16px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    position:sticky;
+    top:0;
+    z-index:100;
+}
+
+.logo{
+    font-size:22px;
+    font-weight:bold;
+    color:#ffd400;
+}
+
+.menu{
+    font-size:25px;
+}
+
+/* SEARCH */
+.search{
+    padding:15px;
+    background:#151821;
+}
+
+.search input{
+    width:100%;
+    padding:13px 15px;
+    border:0;
+    outline:0;
+    border-radius:8px;
+    background:#252a35;
+    color:white;
+    font-size:15px;
+}
+
+/* CATEGORY */
+.categories{
+    display:flex;
+    gap:10px;
+    padding:15px;
+    overflow-x:auto;
+}
+
+.category{
+    background:#20242e;
+    padding:9px 16px;
+    border-radius:20px;
+    white-space:nowrap;
+    font-size:14px;
+}
+
+.category.active{
+    background:#ffd400;
+    color:#111;
+}
+
+/* TITLE */
+.section-title{
+    padding:10px 15px 15px;
+    font-size:20px;
+}
+
+/* GRID */
+.grid{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:14px;
+    padding:0 12px 30px;
+}
+
+/* CARD */
+.card{
+    background:#161922;
+    border-radius:10px;
+    overflow:hidden;
+}
+
+.card img{
+    width:100%;
+    height:230px;
+    object-fit:cover;
+    display:block;
+}
+
+.info{
+    padding:10px;
+}
+
+.title{
+    font-size:15px;
+    font-weight:bold;
+    margin-bottom:6px;
+}
+
+.meta{
+    color:#999;
+    font-size:12px;
+}
+
+.watch{
+    display:block;
+    text-align:center;
+    margin-top:10px;
+    padding:9px;
+    border-radius:6px;
+    background:#ffd400;
+    color:#111;
+    text-decoration:none;
+    font-weight:bold;
+    font-size:14px;
+}
+
+/* FOOTER */
+footer{
+    background:#151821;
+    text-align:center;
+    padding:25px 10px;
+    color:#777;
+    font-size:13px;
+}
+
+/* DESKTOP */
+@media(min-width:700px){
+
+    .grid{
+        grid-template-columns:repeat(5,1fr);
+        max-width:1200px;
+        margin:auto;
+    }
+
+    .categories{
+        max-width:1200px;
+        margin:auto;
+    }
+
+    .search{
+        max-width:1200px;
+        margin:auto;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+
+    <div class="logo">
+        🎬 Cartoon World
+    </div>
+
+    <div class="menu">
+        ☰
+    </div>
+
+</header>
+
+
+<div class="search">
+
+    <input
+        type="text"
+        id="search"
+        placeholder="🔍 Search cartoons..."
+        onkeyup="searchCartoon()"
+    >
+
+</div>
+
+
+<div class="categories">
+
+    <div class="category active">
+        All
+    </div>
+
+    <div class="category">
+        Animation
+    </div>
+
+    <div class="category">
+        Kids
+    </div>
+
+    <div class="category">
+        Adventure
+    </div>
+
+    <div class="category">
+        Comedy
+    </div>
+
+</div>
+
+
+<h2 class="section-title">
+    🔥 Latest Cartoons
+</h2>
+
+
+<div class="grid" id="cartoonGrid">
+
+
+    <div class="card">
+
+        <img
+            src="https://placehold.co/600x900?text=Cartoon+1"
+            alt="Cartoon 1"
+        >
+
+        <div class="info">
+
+            <div class="title">
+                Amazing Cartoon 1
+            </div>
+
+            <div class="meta">
+                Animation • 2026
+            </div>
+
+            <a href="#" class="watch">
+                ▶ Watch Now
+            </a>
+
+        </div>
+
+    </div>
+
+
+
+    <div class="card">
+
+        <img
+            src="https://placehold.co/600x900?text=Cartoon+2"
+            alt="Cartoon 2"
+        >
+
+        <div class="info">
+
+            <div class="title">
+                Amazing Cartoon 2
+            </div>
+
+            <div class="meta">
+                Adventure • 2026
+            </div>
+
+            <a href="#" class="watch">
+                ▶ Watch Now
+            </a>
+
+        </div>
+
+    </div>
+
+
+
+    <div class="card">
+
+        <img
+            src="https://placehold.co/600x900?text=Cartoon+3"
+            alt="Cartoon 3"
+        >
+
+        <div class="info">
+
+            <div class="title">
+                Amazing Cartoon 3
+            </div>
+
+            <div class="meta">
+                Comedy • 2026
+            </div>
+
+            <a href="#" class="watch">
+                ▶ Watch Now
+            </a>
+
+        </div>
+
+    </div>
+
+
+
+    <div class="card">
+
+        <img
+            src="https://placehold.co/600x900?text=Cartoon+4"
+            alt="Cartoon 4"
+        >
+
+        <div class="info">
+
+            <div class="title">
+                Amazing Cartoon 4
+            </div>
+
+            <div class="meta">
+                Kids • 2026
+            </div>
+
+            <a href="#" class="watch">
+                ▶ Watch Now
+            </a>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<footer>
+
+    © 2026 Cartoon World
+
+</footer>
+
+
+<script>
+
+function searchCartoon(){
+
+    let search =
+        document.getElementById("search")
+        .value
+        .toLowerCase();
+
+    let cards =
+        document.querySelectorAll(".card");
+
+    cards.forEach(function(card){
+
+        let title =
+            card.querySelector(".title")
+            .innerText
+            .toLowerCase();
+
+        if(title.includes(search)){
+
+            card.style.display="block";
+
+        }else{
+
+            card.style.display="none";
+
+        }
+
+    });
+
+}
+
+</script>
+
+</body>
+</html>
