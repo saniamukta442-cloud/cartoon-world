@@ -14,7 +14,7 @@
 }
 
 body{
-    background:#0b0d12;
+    background:#090b10;
     color:#fff;
     font-family:Arial,sans-serif;
 }
@@ -22,56 +22,77 @@ body{
 /* HEADER */
 header{
     background:#151821;
-    padding:16px;
+    padding:15px 18px;
     display:flex;
     align-items:center;
     justify-content:space-between;
     position:sticky;
     top:0;
-    z-index:100;
+    z-index:1000;
 }
 
 .logo{
+    color:#ffd400;
     font-size:22px;
     font-weight:bold;
-    color:#ffd400;
 }
 
 .menu{
-    font-size:25px;
+    font-size:28px;
+}
+
+/* HERO */
+.hero{
+    padding:25px 18px;
+    background:linear-gradient(135deg,#191d29,#0c0e14);
+}
+
+.hero h1{
+    font-size:28px;
+    margin-bottom:8px;
+}
+
+.hero p{
+    color:#aaa;
+    line-height:1.5;
 }
 
 /* SEARCH */
-.search{
-    padding:15px;
+.search-box{
+    padding:15px 18px;
     background:#151821;
 }
 
-.search input{
+.search-box input{
     width:100%;
-    padding:13px 15px;
-    border:0;
-    outline:0;
-    border-radius:8px;
-    background:#252a35;
+    padding:14px 16px;
+    border:none;
+    outline:none;
+    border-radius:10px;
+    background:#272c38;
     color:white;
     font-size:15px;
 }
 
-/* CATEGORY */
+/* CATEGORIES */
 .categories{
     display:flex;
     gap:10px;
-    padding:15px;
+    padding:15px 18px;
     overflow-x:auto;
 }
 
+.categories::-webkit-scrollbar{
+    display:none;
+}
+
 .category{
+    padding:10px 17px;
+    border-radius:25px;
     background:#20242e;
-    padding:9px 16px;
-    border-radius:20px;
+    color:#ddd;
     white-space:nowrap;
-    font-size:14px;
+    cursor:pointer;
 }
 
 .category.active{
@@ -79,10 +100,25 @@ header{
     color:#111;
 }
 
-/* TITLE */
-.section-title{
-    padding:10px 15px 15px;
-    font-size:20px;
+/* SECTION */
+.section{
+    padding:8px 18px 18px;
+}
+
+.section-header{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    margin-bottom:15px;
+}
+
+.section-header h2{
+    font-size:21px;
+}
+
+.section-header span{
+    color:#ffd400;
+    font-size:13px;
 }
 
 /* GRID */
@@ -90,56 +126,90 @@ header{
     display:grid;
     grid-template-columns:repeat(2,1fr);
     gap:14px;
-    padding:0 12px 30px;
 }
 
 /* CARD */
 .card{
-    background:#161922;
-    border-radius:10px;
+    background:#171a22;
+    border-radius:12px;
     overflow:hidden;
+    box-shadow:0 5px 18px rgba(0,0,0,.35);
 }
 
-.card img{
+.poster{
+    position:relative;
+}
+
+.poster img{
     width:100%;
-    height:230px;
+    height:235px;
     object-fit:cover;
     display:block;
 }
 
+.badge{
+    position:absolute;
+    top:9px;
+    left:9px;
+    background:#ffd400;
+    color:#111;
+    padding:5px 8px;
+    border-radius:5px;
+    font-size:11px;
+    font-weight:bold;
+}
+
 .info{
-    padding:10px;
+    padding:11px;
 }
 
 .title{
     font-size:15px;
     font-weight:bold;
-    margin-bottom:6px;
+    white-space:nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
 }
 
 .meta{
+    margin-top:6px;
     color:#999;
     font-size:12px;
 }
 
+.rating{
+    margin-top:7px;
+    color:#ffd400;
+    font-size:13px;
+}
+
 .watch{
     display:block;
-    text-align:center;
     margin-top:10px;
-    padding:9px;
-    border-radius:6px;
+    padding:10px;
     background:#ffd400;
     color:#111;
+    border-radius:7px;
+    text-align:center;
     text-decoration:none;
     font-weight:bold;
     font-size:14px;
 }
 
+/* EMPTY SEARCH */
+.no-result{
+    display:none;
+    text-align:center;
+    color:#888;
+    padding:40px 10px;
+}
+
 /* FOOTER */
 footer{
+    margin-top:30px;
+    padding:30px 15px;
     background:#151821;
     text-align:center;
-    padding:25px 10px;
     color:#777;
     font-size:13px;
 }
@@ -149,16 +219,24 @@ footer{
 
     .grid{
         grid-template-columns:repeat(5,1fr);
+    }
+
+    .section{
         max-width:1200px;
         margin:auto;
+    }
+
+    .hero{
+        padding-left:calc((100% - 1160px)/2);
+        padding-right:calc((100% - 1160px)/2);
+    }
+
+    .search-box{
+        padding-left:calc((100% - 1160px)/2);
+        padding-right:calc((100% - 1160px)/2);
     }
 
     .categories{
-        max-width:1200px;
-        margin:auto;
-    }
-
-    .search{
         max-width:1200px;
         margin:auto;
     }
@@ -168,6 +246,7 @@ footer{
 
 <body>
 
+<!-- HEADER -->
 <header>
 
     <div class="logo">
@@ -181,7 +260,21 @@ footer{
 </header>
 
 
-<div class="search">
+<!-- HERO -->
+<section class="hero">
+
+    <h1>Watch Cartoons Online 🎬</h1>
+
+    <p>
+        Discover your favorite cartoons and animation.
+        Watch online anytime.
+    </p>
+
+</section>
+
+
+<!-- SEARCH -->
+<div class="search-box">
 
     <input
         type="text"
@@ -193,148 +286,219 @@ footer{
 </div>
 
 
+<!-- CATEGORIES -->
 <div class="categories">
 
-    <div class="category active">
+    <div class="category active"
+         onclick="filterCategory('all',this)">
         All
     </div>
 
-    <div class="category">
+    <div class="category"
+         onclick="filterCategory('animation',this)">
         Animation
     </div>
 
-    <div class="category">
+    <div class="category"
+         onclick="filterCategory('kids',this)">
         Kids
     </div>
 
-    <div class="category">
+    <div class="category"
+         onclick="filterCategory('adventure',this)">
         Adventure
     </div>
 
-    <div class="category">
+    <div class="category"
+         onclick="filterCategory('comedy',this)">
         Comedy
     </div>
 
 </div>
 
 
-<h2 class="section-title">
-    🔥 Latest Cartoons
-</h2>
+<!-- CARTOONS -->
+<section class="section">
 
+    <div class="section-header">
 
-<div class="grid" id="cartoonGrid">
+        <h2>🔥 Latest Cartoons</h2>
 
-
-    <div class="card">
-
-        <img
-            src="https://placehold.co/600x900?text=Cartoon+1"
-            alt="Cartoon 1"
-        >
-
-        <div class="info">
-
-            <div class="title">
-                Amazing Cartoon 1
-            </div>
-
-            <div class="meta">
-                Animation • 2026
-            </div>
-
-            <a href="#" class="watch">
-                ▶ Watch Now
-            </a>
-
-        </div>
+        <span>View All →</span>
 
     </div>
 
 
+    <div class="grid" id="cartoonGrid">
 
-    <div class="card">
 
-        <img
-            src="https://placehold.co/600x900?text=Cartoon+2"
-            alt="Cartoon 2"
-        >
+        <!-- CARD 1 -->
+        <div class="card" data-category="animation">
 
-        <div class="info">
+            <div class="poster">
 
-            <div class="title">
-                Amazing Cartoon 2
+                <img
+                    src="https://placehold.co/600x900?text=Cartoon+1"
+                    alt="Amazing Cartoon 1"
+                >
+
+                <div class="badge">
+                    NEW
+                </div>
+
             </div>
 
-            <div class="meta">
-                Adventure • 2026
-            </div>
+            <div class="info">
 
-            <a href="#" class="watch">
-                ▶ Watch Now
-            </a>
+                <div class="title">
+                    Amazing Cartoon 1
+                </div>
+
+                <div class="meta">
+                    Animation • 2026
+                </div>
+
+                <div class="rating">
+                    ⭐ 4.8
+                </div>
+
+                <a href="watch.html" class="watch">
+                    ▶ Watch Now
+                </a>
+
+            </div>
 
         </div>
+
+
+        <!-- CARD 2 -->
+        <div class="card" data-category="adventure">
+
+            <div class="poster">
+
+                <img
+                    src="https://placehold.co/600x900?text=Cartoon+2"
+                    alt="Amazing Cartoon 2"
+                >
+
+                <div class="badge">
+                    NEW
+                </div>
+
+            </div>
+
+            <div class="info">
+
+                <div class="title">
+                    Amazing Cartoon 2
+                </div>
+
+                <div class="meta">
+                    Adventure • 2026
+                </div>
+
+                <div class="rating">
+                    ⭐ 4.7
+                </div>
+
+                <a href="watch.html" class="watch">
+                    ▶ Watch Now
+                </a>
+
+            </div>
+
+        </div>
+
+
+        <!-- CARD 3 -->
+        <div class="card" data-category="comedy">
+
+            <div class="poster">
+
+                <img
+                    src="https://placehold.co/600x900?text=Cartoon+3"
+                    alt="Amazing Cartoon 3"
+                >
+
+                <div class="badge">
+                    HD
+                </div>
+
+            </div>
+
+            <div class="info">
+
+                <div class="title">
+                    Amazing Cartoon 3
+                </div>
+
+                <div class="meta">
+                    Comedy • 2026
+                </div>
+
+                <div class="rating">
+                    ⭐ 4.6
+                </div>
+
+                <a href="watch.html" class="watch">
+                    ▶ Watch Now
+                </a>
+
+            </div>
+
+        </div>
+
+
+        <!-- CARD 4 -->
+        <div class="card" data-category="kids">
+
+            <div class="poster">
+
+                <img
+                    src="https://placehold.co/600x900?text=Cartoon+4"
+                    alt="Amazing Cartoon 4"
+                >
+
+                <div class="badge">
+                    HD
+                </div>
+
+            </div>
+
+            <div class="info">
+
+                <div class="title">
+                    Amazing Cartoon 4
+                </div>
+
+                <div class="meta">
+                    Kids • 2026
+                </div>
+
+                <div class="rating">
+                    ⭐ 4.9
+                </div>
+
+                <a href="watch.html" class="watch">
+                    ▶ Watch Now
+                </a>
+
+            </div>
+
+        </div>
+
 
     </div>
 
 
-
-    <div class="card">
-
-        <img
-            src="https://placehold.co/600x900?text=Cartoon+3"
-            alt="Cartoon 3"
-        >
-
-        <div class="info">
-
-            <div class="title">
-                Amazing Cartoon 3
-            </div>
-
-            <div class="meta">
-                Comedy • 2026
-            </div>
-
-            <a href="#" class="watch">
-                ▶ Watch Now
-            </a>
-
-        </div>
-
+    <div class="no-result" id="noResult">
+        😔 No cartoon found
     </div>
 
+</section>
 
 
-    <div class="card">
-
-        <img
-            src="https://placehold.co/600x900?text=Cartoon+4"
-            alt="Cartoon 4"
-        >
-
-        <div class="info">
-
-            <div class="title">
-                Amazing Cartoon 4
-            </div>
-
-            <div class="meta">
-                Kids • 2026
-            </div>
-
-            <a href="watch.html" class="watch">
-                ▶ Watch Now
-            </a>
-
-        </div>
-
-    </div>
-
-</div>
-
-
+<!-- FOOTER -->
 <footer>
 
     © 2026 Cartoon World
@@ -344,15 +508,20 @@ footer{
 
 <script>
 
+/* SEARCH */
+
 function searchCartoon(){
 
-    let search =
+    let input =
         document.getElementById("search")
         .value
-        .toLowerCase();
+        .toLowerCase()
+        .trim();
 
     let cards =
         document.querySelectorAll(".card");
+
+    let found = 0;
 
     cards.forEach(function(card){
 
@@ -361,18 +530,62 @@ function searchCartoon(){
             .innerText
             .toLowerCase();
 
-        if(title.includes(search)){
+        if(title.includes(input)){
 
-            card.style.display="block";
+            card.style.display = "";
+
+            found++;
 
         }else{
 
-            card.style.display="none";
+            card.style.display = "none";
 
         }
 
     });
 
+    document.getElementById("noResult").style.display =
+        found === 0 ? "block" : "none";
+}
+
+
+/* CATEGORY FILTER */
+
+function filterCategory(category, button){
+
+    document
+        .querySelectorAll(".category")
+        .forEach(function(item){
+
+            item.classList.remove("active");
+
+        });
+
+    button.classList.add("active");
+
+    let cards =
+        document.querySelectorAll(".card");
+
+    cards.forEach(function(card){
+
+        if(
+            category === "all" ||
+            card.dataset.category === category
+        ){
+
+            card.style.display = "";
+
+        }else{
+
+            card.style.display = "none";
+
+        }
+
+    });
+
+    document.getElementById("search").value = "";
+
+    document.getElementById("noResult").style.display = "none";
 }
 
 </script>
