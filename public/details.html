@@ -105,3 +105,126 @@ header{
     padding:13px;
     text-align:center;
     text-decoration:none;
+    border-radius:8px;
+    font-weight:bold;
+}
+
+.watch{
+    background:#ffd400;
+    color:#111;
+}
+
+.download{
+    background:#272c38;
+    color:#fff;
+}
+
+footer{
+    text-align:center;
+    color:#777;
+    padding:30px 10px;
+}
+
+@media(max-width:600px){
+
+    .hero{
+        grid-template-columns:120px 1fr;
+        gap:15px;
+    }
+
+    .poster{
+        height:180px;
+    }
+
+    .info h1{
+        font-size:19px;
+    }
+
+    .meta{
+        font-size:12px;
+    }
+
+    .buttons{
+        flex-direction:column;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+
+    <a href="index.html" class="back">←</a>
+
+    <div class="logo">
+        🎬 Cartoon World
+    </div>
+
+</header>
+
+<div class="container">
+
+    <div class="hero">
+
+        <img
+            class="poster"
+            src="https://placehold.co/600x900?text=Cartoon+1"
+            alt="Amazing Cartoon 1"
+        >
+
+        <div class="info">
+
+            <h1>
+                Amazing Cartoon 1
+            </h1>
+
+            <div class="rating">
+                ⭐ 4.8 / 5
+            </div>
+
+            <div class="meta">
+                🎨 Category: Animation<br>
+                📅 Year: 2026<br>
+                🌐 Language: English<br>
+                🎬 Type: Cartoon
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="description">
+
+        <h2>
+            📝 Description
+        </h2>
+
+        <p>
+            Welcome to Cartoon World. Here you can find
+            information about this cartoon and watch
+            legally available content online.
+        </p>
+
+    </div>
+
+    <div class="buttons">
+
+        <a href="watch.html" class="btn watch">
+            ▶ Watch Online
+        </a>
+
+        <a href="#" class="btn download">
+            ⬇ Download
+        </a>
+
+    </div>
+
+</div>
+
+<footer>
+    © 2026 Cartoon World
+</footer>
+
+</body>
+</html>
