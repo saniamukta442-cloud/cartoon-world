@@ -600,7 +600,7 @@ function renderCartoons() {
           </p>
           ${
             videoUrl
-              ? `<a class="watch" href="${safeText(videoUrl)}" target="_blank" rel="noopener noreferrer">▶ Watch Now</a>`
+              ? `<a class="watch" href="watch.html?id=${encodeURIComponent(c.id)}">▶ Watch Now</a>`
               : '<span class="badge">Video unavailable</span>'
           }
         </div>
