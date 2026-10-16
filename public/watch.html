@@ -86,16 +86,6 @@ footer{text-align:center;padding:25px;color:#777}
     </a>
   </div>
 </div>
- 
-<div id="downloadSection" hidden>
-  <h2 class="download-heading">👇 DOWNLOAD LINKS 👇</h2>
-  <div class="download-panel">
-    <a id="downloadBtn" class="download" href="#" download>
-      ☁ Download Video ☁
-    </a>
-  </div>
-</div>
-
   
 </div>
 <footer>© 2026 Cartoon World</footer>
@@ -197,6 +187,14 @@ if (data.video_url && /\.(mp4|webm|ogv)(?:$|[?#])/i.test(data.video_url)) {
   downloadBtn.hidden = false;
 }
 
+const downloadSection = document.getElementById('downloadSection');
+
+if (data.video_url && /\.(mp4|webm|ogv)(?:$|[?#])/i.test(data.video_url)) {
+  downloadBtn.href = data.video_url;
+  downloadBtn.hidden = false;
+  downloadSection.hidden = false;
+}
+    
 showVideo(data.video_url);
 
     
