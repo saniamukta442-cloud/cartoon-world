@@ -504,47 +504,6 @@
 
                 </div>
 
-            </article>
-
-
-            <!-- CARTOON 4 -->
-            <article
-                class="card"
-                data-category="animation adventure"
-                data-title="Amazing Cartoon 4"
-            >
-
-                <img
-                    class="poster"
-                    src="https://placehold.co/600x900/171522/ffffff?text=Cartoon+4"
-                    alt="Amazing Cartoon 4"
-                >
-
-                <div class="card-body">
-
-                    <h3>Amazing Cartoon 4</h3>
-
-                    <div class="info">
-
-                        <span class="badge">Animation</span>
-
-                        <span class="badge rating">
-                            ⭐ 8.9
-                        </span>
-
-                    </div>
-
-                    <a href="details.html" class="watch">
-                        ▶ Watch Now
-                    </a>
-
-                </div>
-
-            </article>
-
-
-        </div>
-
 
         <div id="noResult">
             😕 No cartoons found.
@@ -570,98 +529,119 @@
 </footer>
 
 
-<script>
 
-    const searchInput = document.getElementById("search");
+<script type="module">
+import { createClient } from
+  'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm';
 
-    const cards = document.querySelectorAll(".card");
+const supabase = createClient(
+  'https://nifuvzwgurowdgmhbknr.supabase.co',
+  'sb_publishable_i-zbQhltxolNkgfXT30HOg_JNC0Quyv'
+);
 
-    const categories = document.querySelectorAll(".category");
+const grid = document.getElementById('cartoonGrid');
+const search = document.getElementById('search');
+const count = document.getElementById('count');
+const noResult = document.getElementById('noResult');
+const categoryButtons = document.querySelectorAll('.category');
 
-    const noResult = document.getElementById("noResult");
+let cartoons = [];
+let selectedCategory = 'all';
 
-    const count = document.getElementById("count");
+function safeText(value) {
+  return String(value ?? '').replace(/[&<>"']/g, char => ({
+    '&': '&amp;',
+    '<': '&lt;',
+    '>': '&gt;',
+    '"': '&quot;',
+    "'": '&#39;'
+  })[char]);
+}
 
+function renderCartoons() {
+  const term = search.value.trim().toLowerCase();
 
-    let selectedCategory = "all";
+  const filtered = cartoons.filter(c => {
+    const title = (c.title || '').toLowerCase();
+    const category = (c.category || 'General').toLowerCase();
 
+    return title.includes(term) &&
+      (selectedCategory === 'all' ||
+       category.includes(selectedCategory));
+  });
 
-    function filterCards() {
+  count.textContent = `${filtered.length} cartoons`;
+  noResult.style.display = filtered.length ? 'none' : 'block';
 
-        const searchText =
-            searchInput.value.toLowerCase().trim();
+  grid.innerHTML = filtered.map(c => {
+    const title = safeText(c.title);
+    const category = safeText(c.category || 'General');
+    const description = safeText(c.description || '');
+    const poster = /^https?:\/\//i.test(c.poster_url || '')
+      ? safeText(c.poster_url)
+      : 'https://placehold.co/600x900/171522/ffffff?text=Cartoon';
 
-        let visible = 0;
+    const videoUrl = /^https?:\/\//i.test(c.video_url || '')
+      ? c.video_url
+      : '';
 
+    return `
+      <article class="card">
+        <img class="poster" src="${poster}" alt="${title}"
+          loading="lazy"
+          onerror="this.onerror=null;this.src='https://placehold.co/600x900/171522/ffffff?text=Cartoon'">
+        <div class="card-body">
+          <h3>${title}</h3>
+          <div class="info">
+            <span class="badge">${category}</span>
+          </div>
+          <p style="color:#bbb;font-size:13px;line-height:1.5;margin-bottom:12px">
+            ${description}
+          </p>
+          ${
+            videoUrl
+              ? `<a class="watch" href="${safeText(videoUrl)}" target="_blank" rel="noopener noreferrer">▶ Watch Now</a>`
+              : '<span class="badge">Video unavailable</span>'
+          }
+        </div>
+      </article>
+    `;
+  }).join('');
+}
 
-        cards.forEach(card => {
+async function loadCartoons() {
+  count.textContent = 'Loading...';
 
-            const title =
-                card.dataset.title.toLowerCase();
+  const { data, error } = await supabase
+    .from('cartoons')
+    .select('id,title,description,poster_url,video_url,category')
+    .eq('published', true)
+    .order('created_at', { ascending: false });
 
-            const cardCategories =
-                card.dataset.category.toLowerCase();
+  if (error) {
+    count.textContent = 'Could not load cartoons';
+    noResult.textContent = 'কার্টুন লোড হয়নি। পরে আবার চেষ্টা করো।';
+    noResult.style.display = 'block';
+    console.error(error);
+    return;
+  }
 
+  cartoons = data || [];
+  renderCartoons();
+}
 
-            const matchesSearch =
-                title.includes(searchText);
+search.addEventListener('input', renderCartoons);
 
-            const matchesCategory =
-                selectedCategory === "all" ||
-                cardCategories.includes(selectedCategory);
+categoryButtons.forEach(button => {
+  button.addEventListener('click', () => {
+    categoryButtons.forEach(b => b.classList.remove('active'));
+    button.classList.add('active');
+    selectedCategory = button.dataset.category;
+    renderCartoons();
+  });
+});
 
-
-            if (matchesSearch && matchesCategory) {
-
-                card.style.display = "";
-
-                visible++;
-
-            } else {
-
-                card.style.display = "none";
-
-            }
-
-        });
-
-
-        count.textContent =
-            visible + (visible === 1 ? " cartoon" : " cartoons");
-
-
-        noResult.style.display =
-            visible === 0 ? "block" : "none";
-
-    }
-
-
-    searchInput.addEventListener(
-        "input",
-        filterCards
-    );
-
-
-    categories.forEach(button => {
-
-        button.addEventListener("click", () => {
-
-            categories.forEach(btn =>
-                btn.classList.remove("active")
-            );
-
-            button.classList.add("active");
-
-            selectedCategory =
-                button.dataset.category;
-
-            filterCards();
-
-        });
-
-    });
-
+loadCartoons();
 </script>
-
 </body>
 </html>
