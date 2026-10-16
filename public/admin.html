@@ -1,48 +1,134 @@
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="bn">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Cartoon World Admin</title>
   <style>
+    * { box-sizing: border-box; }
     body {
-      background: #090b10;
-      color: white;
+      margin: 0; padding: 20px;
+      background: #090b10; color: white;
       font-family: Arial, sans-serif;
-      padding: 20px;
     }
-    .panel {
-      max-width: 450px;
-      margin: 30px auto;
-      background: #151821;
-      padding: 20px;
-      border-radius: 12px;
+    main {
+      max-width: 520px; margin: 25px auto;
+      background: #151821; padding: 22px;
+      border-radius: 14px;
     }
     input, textarea, button {
-      box-sizing: border-box;
-      width: 100%;
-      padding: 12px;
-      margin: 8px 0;
-      border-radius: 7px;
-      border: 1px solid #333;
+      width: 100%; padding: 12px; margin: 8px 0;
+      border-radius: 7px; font-size: 16px;
     }
     input, textarea {
-      background: #090b10;
-      color: white;
+      background: #090b10; color: white;
+      border: 1px solid #444;
     }
     button {
-      background: #ffd400;
-      color: #111;
-      font-weight: bold;
-      cursor: pointer;
+      background: #ffd400; color: #111;
+      border: 0; font-weight: bold;
     }
+    #panel { display: none; }
+    #status { overflow-wrap: anywhere; }
   </style>
 </head>
 <body>
-  <div class="panel">
-    <h2>🎬 Cartoon World Admin</h2>
-    <p>Admin Panel প্রস্তুত করা হচ্ছে।</p>
-  </div>
+<main>
+  <h2>🎬 Cartoon World Admin</h2>
+
+  <section id="login">
+    <h3>Admin Login</h3>
+    <input id="email" type="email" placeholder="Admin email" autocomplete="username">
+    <input id="password" type="password" placeholder="Password" autocomplete="current-password">
+    <button id="loginBtn">Login</button>
+  </section>
+
+  <section id="panel">
+    <h3>নতুন কার্টুন যোগ করো</h3>
+    <form id="cartoonForm">
+      <input id="title" placeholder="কার্টুনের নাম" required>
+      <textarea id="description" placeholder="কার্টুনের বিবরণ"></textarea>
+      <input id="poster" type="url" placeholder="Poster image URL">
+      <input id="video" type="url" placeholder="Video URL" required>
+      <input id="category" placeholder="Category">
+      <button type="submit">কার্টুন যোগ করো</button>
+    </form>
+    <button id="logoutBtn">Logout</button>
+  </section>
+  <p id="status" role="status"></p>
+</main>
+
+<script type="module">
+import { createClient } from
+  'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm';
+
+const SUPABASE_URL = 'https://nifuvzwgurowdgmhbknr.supabase.co';
+const SUPABASE_KEY = 'sb_publishable_i-zbQhltxolNkgfXT30HOg_JNC0Quyv';
+
+const supabase = createClient(SUPABASE_URL, SUPABASE_KEY);
+const status = document.getElementById('status');
+const loginSection = document.getElementById('login');
+const panel = document.getElementById('panel');
+
+async function refreshSession() {
+  const { data } = await supabase.auth.getSession();
+  const session = data.session;
+  loginSection.style.display = session ? 'none' : 'block';
+  panel.style.display = session ? 'block' : 'none';
+}
+
+document.getElementById('loginBtn').addEventListener('click', async () => {
+  status.textContent = 'লগইন হচ্ছে...';
+  const email = document.getElementById('email').value.trim();
+  const password = document.getElementById('password').value;
+
+  const { error } = await supabase.auth.signInWithPassword({ email, password });
+  if (error) {
+    status.textContent = 'লগইন হয়নি। ইমেইল ও পাসওয়ার্ড যাচাই করো।';
+    return;
+  }
+
+  await refreshSession();
+  status.textContent = 'লগইন সফল।';
+});
+
+document.getElementById('cartoonForm').addEventListener('submit', async (e) => {
+  e.preventDefault();
+  status.textContent = 'কার্টুন যোগ হচ্ছে...';
+
+  const { data: userData } = await supabase.auth.getUser();
+  if (!userData.user || userData.user.id !== '57232467-1217-4610-a11e-475ca634914b') {
+    status.textContent = 'অনুমতি নেই। সঠিক Admin অ্যাকাউন্টে লগইন করো।';
+    return;
+  }
+
+  const cartoon = {
+    title: document.getElementById('title').value.trim(),
+    description: document.getElementById('description').value.trim(),
+    poster_url: document.getElementById('poster').value.trim(),
+    video_url: document.getElementById('video').value.trim(),
+    category: document.getElementById('category').value.trim() || 'General',
+    published: true
+  };
+
+  const { error } = await supabase.from('cartoons').insert(cartoon);
+  if (error) {
+    status.textContent = 'যোগ করা যায়নি। টেবিলের অনুমতি ও URL যাচাই করো।';
+    return;
+  }
+
+  status.textContent = 'কার্টুন সফলভাবে যোগ হয়েছে!';
+  e.target.reset();
+});
+
+document.getElementById('logoutBtn').addEventListener('click', async () => {
+  await supabase.auth.signOut();
+  await refreshSession();
+  status.textContent = 'লগআউট হয়েছে।';
+});
+
+await refreshSession();
+</script>
 </body>
 </html>
