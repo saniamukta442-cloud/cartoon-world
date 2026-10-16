@@ -75,7 +75,8 @@ const supabase = createClient(
 const params = new URLSearchParams(location.search);
 const id = params.get('id');
 const videoParam = params.get('video');
-
+const downloadBtn = document.getElementById('downloadBtn');
+  
 function showMessage(message) {
   document.getElementById('title').textContent = message;
 }
@@ -150,8 +151,17 @@ async function load() {
 
     document.getElementById('title').textContent = data.title;
     document.getElementById('meta').textContent = '🎨 ' + (data.category || 'General');
-    document.getElementById('description').textContent = data.description || '';
-    showVideo(data.video_url);
+    
+document.getElementById('description').textContent = data.description || '';
+
+if (data.video_url && /\.(mp4|webm|ogv)(?:$|[?#])/i.test(data.video_url)) {
+  downloadBtn.href = data.video_url;
+  downloadBtn.download = '';
+  downloadBtn.hidden = false;
+}
+
+showVideo(data.video_url);
+
     document.title = data.title + ' - Cartoon World';
     return;
   }
