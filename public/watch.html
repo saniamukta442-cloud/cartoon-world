@@ -22,8 +22,30 @@ video,iframe{width:100%;height:100%;display:block;border:0}
 .home{background:#252a35;color:white}
 
 .download {
-  background: #ffd400;
-  color: #111;
+  display: block;
+  background: #3b414d;
+  color: #00e5ff;
+  padding: 20px 12px;
+  border-radius: 10px;
+  text-align: center;
+  font-size: 18px;
+  font-weight: bold;
+  text-decoration: none;
+  margin-top: 12px;
+}
+
+.download-heading {
+  color: #ffc83d;
+  font-size: 25px;
+  text-align: center;
+  margin: 25px 0 15px;
+}
+
+.download-panel {
+  background: #191c23;
+  padding: 20px;
+  border-radius: 12px;
+  margin-top: 15px;
 }
 
 [hidden] {
@@ -56,10 +78,17 @@ footer{text-align:center;padding:25px;color:#777}
   </a>
 </div>
 
+
+<div id="downloadSection" hidden>
+  <h2 class="download-heading">👇 DOWNLOAD LINKS 👇</h2>
+  <div class="download-panel">
+    <a id="downloadBtn" class="download" href="#" download>
+      ☁ Download Video ☁
+    </a>
   </div>
-  <div class="notice">
-    কেবল অনুমতিপ্রাপ্ত বা আইনগতভাবে বিতরণযোগ্য ভিডিও দেখানো হয়।
-  </div>
+</div>
+
+  
 </div>
 <footer>© 2026 Cartoon World</footer>
 
