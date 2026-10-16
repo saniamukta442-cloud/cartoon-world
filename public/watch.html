@@ -1,203 +1,159 @@
+
 <!DOCTYPE html>
-<html lang="en">
+<html lang="bn">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Watch Cartoon - Cartoon World</title>
-
 <style>
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-}
-
-body{
-    background:#0b0d12;
-    color:white;
-    font-family:Arial,sans-serif;
-}
-
-header{
-    background:#151821;
-    padding:16px;
-    display:flex;
-    align-items:center;
-    gap:15px;
-}
-
-.back{
-    color:white;
-    text-decoration:none;
-    font-size:25px;
-}
-
-.logo{
-    color:#ffd400;
-    font-size:21px;
-    font-weight:bold;
-}
-
-.container{
-    max-width:900px;
-    margin:auto;
-    padding:15px;
-}
-
-.video-box{
-    background:#000;
-    width:100%;
-    aspect-ratio:16/9;
-    border-radius:10px;
-    overflow:hidden;
-    margin-bottom:20px;
-}
-
-video{
-    width:100%;
-    height:100%;
-    display:block;
-}
-
-.title{
-    font-size:24px;
-    font-weight:bold;
-    margin-bottom:8px;
-}
-
-.meta{
-    color:#999;
-    font-size:14px;
-    margin-bottom:18px;
-}
-
-.description{
-    color:#ccc;
-    line-height:1.6;
-    background:#161922;
-    padding:15px;
-    border-radius:10px;
-    margin-bottom:20px;
-}
-
-.buttons{
-    display:flex;
-    gap:10px;
-}
-
-.btn{
-    flex:1;
-    padding:13px;
-    border-radius:7px;
-    text-align:center;
-    text-decoration:none;
-    font-weight:bold;
-}
-
-.download{
-    background:#ffd400;
-    color:#111;
-}
-
-.home{
-    background:#252a35;
-    color:white;
-}
-
-.notice{
-    margin-top:20px;
-    padding:12px;
-    background:#191c25;
-    color:#999;
-    border-radius:8px;
-    font-size:13px;
-}
-
-footer{
-    text-align:center;
-    padding:25px;
-    color:#777;
-}
+*{box-sizing:border-box}
+body{margin:0;background:#0b0d12;color:white;font-family:Arial,sans-serif}
+header{background:#151821;padding:16px;display:flex;align-items:center;gap:15px}
+.back{color:white;text-decoration:none;font-size:25px}
+.logo{color:#ffd400;font-size:21px;font-weight:bold}
+.container{max-width:900px;margin:auto;padding:15px}
+.video-box{background:#000;width:100%;aspect-ratio:16/9;border-radius:10px;overflow:hidden;margin-bottom:20px}
+video,iframe{width:100%;height:100%;display:block;border:0}
+.title{font-size:24px;font-weight:bold;margin-bottom:8px}
+.meta{color:#999;font-size:14px;margin-bottom:18px}
+.description{color:#ccc;line-height:1.6;background:#161922;padding:15px;border-radius:10px;margin-bottom:20px}
+.buttons{display:flex;gap:10px}
+.btn{flex:1;padding:13px;border-radius:7px;text-align:center;text-decoration:none;font-weight:bold}
+.home{background:#252a35;color:white}
+.notice{margin-top:20px;padding:12px;background:#191c25;color:#999;border-radius:8px;font-size:13px}
+footer{text-align:center;padding:25px;color:#777}
 </style>
 </head>
-
 <body>
-
 <header>
-
-    <a href="index.html" class="back">←</a>
-
-    <div class="logo">
-        🎬 Cartoon World
-    </div>
-
+<a href="index.html" class="back">←</a>
+<div class="logo">🎬 Cartoon World</div>
 </header>
 
-
 <div class="container">
-
-    <div class="video-box">
-
-        <video controls poster="https://placehold.co/1280x720?text=Your+Cartoon">
-
-            <source
-    src="https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.mp4"
-    type="video/mp4">
-
-            Your browser does not support video playback.
-
-        </video>
-
-    </div>
-
-
-    <div class="title">
-        Amazing Cartoon 1
-    </div>
-
-    <div class="meta">
-        🎨 Animation &nbsp; • &nbsp; 📅 2026
-    </div>
-
-
-    <div class="description">
-
-        <b>Description</b>
-
-        <p style="margin-top:8px;">
-            Watch this cartoon online on Cartoon World.
-            More information about this cartoon will appear here.
-        </p>
-
-    </div>
-
-
-    <div class="buttons">
-
-        <a href="index.html" class="btn home">
-            🏠 Home
-        </a>
-
-        <a href="#" class="btn download">
-            ⬇ Download
-        </a>
-
-    </div>
-
-
-    <div class="notice">
-        ⚠️ Download and stream only content that you own,
-        have permission to distribute, or is otherwise legally
-        available for redistribution.
-    </div>
-
+  <div class="video-box" id="videoBox"></div>
+  <div class="title" id="title">কার্টুন লোড হচ্ছে...</div>
+  <div class="meta" id="meta"></div>
+  <div class="description">
+    <b>Description</b>
+    <p id="description" style="margin-top:8px"></p>
+  </div>
+  <div class="buttons">
+    <a href="index.html" class="btn home">🏠 Home</a>
+  </div>
+  <div class="notice">
+    কেবল অনুমতিপ্রাপ্ত বা আইনগতভাবে বিতরণযোগ্য ভিডিও দেখানো হয়।
+  </div>
 </div>
+<footer>© 2026 Cartoon World</footer>
 
+<script type="module">
+import { createClient } from
+'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm';
 
-<footer>
-    © 2026 Cartoon World
-</footer>
+const supabase = createClient(
+  'https://nifuvzwgurowdgmhbknr.supabase.co',
+  'sb_publishable_i-zbQhltxolNkgfXT30HOg_JNC0Quyv'
+);
 
+const params = new URLSearchParams(location.search);
+const id = params.get('id');
+const videoParam = params.get('video');
+
+function showMessage(message) {
+  document.getElementById('title').textContent = message;
+}
+
+function showVideo(url) {
+  const box = document.getElementById('videoBox');
+
+  try {
+    const parsed = new URL(url);
+    if (parsed.protocol !== 'https:' && parsed.protocol !== 'http:') {
+      throw new Error('Invalid URL');
+    }
+
+    // YouTube links are displayed in an embedded player.
+    let videoId = '';
+    if (parsed.hostname === 'youtu.be') {
+      videoId = parsed.pathname.slice(1);
+    } else if (
+      parsed.hostname === 'youtube.com' ||
+      parsed.hostname === 'www.youtube.com' ||
+      parsed.hostname === 'm.youtube.com'
+    ) {
+      if (parsed.pathname === '/watch') {
+        videoId = parsed.searchParams.get('v') || '';
+      } else if (parsed.pathname.startsWith('/embed/')) {
+        videoId = parsed.pathname.split('/')[2] || '';
+      }
+    }
+
+    if (/^[\w-]{11}$/.test(videoId)) {
+      const iframe = document.createElement('iframe');
+      iframe.src = 'https://www.youtube-nocookie.com/embed/' + videoId;
+      iframe.title = 'Cartoon video player';
+      iframe.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share';
+      iframe.allowFullscreen = true;
+      box.appendChild(iframe);
+      return;
+    }
+
+    // Direct MP4/WebM links can play in the HTML video player.
+    if (/\.(mp4|webm|ogv)(?:$|[?#])/i.test(url)) {
+      const video = document.createElement('video');
+      video.controls = true;
+      video.playsInline = true;
+      video.preload = 'metadata';
+      const source = document.createElement('source');
+      source.src = url;
+      video.appendChild(source);
+      box.appendChild(video);
+      return;
+    }
+
+    box.textContent = 'এই ভিডিও লিংকটি এমবেড করা যাচ্ছে না। সঠিক YouTube বা সরাসরি ভিডিও URL দাও।';
+  } catch {
+    box.textContent = 'ভিডিও URL সঠিক নয়।';
+  }
+}
+
+async function load() {
+  if (id) {
+    const { data, error } = await supabase
+      .from('cartoons')
+      .select('title,description,category,video_url')
+      .eq('id', id)
+      .eq('published', true)
+      .maybeSingle();
+
+    if (error || !data) {
+      showMessage('কার্টুন পাওয়া যায়নি।');
+      return;
+    }
+
+    document.getElementById('title').textContent = data.title;
+    document.getElementById('meta').textContent = '🎨 ' + (data.category || 'General');
+    document.getElementById('description').textContent = data.description || '';
+    showVideo(data.video_url);
+    document.title = data.title + ' - Cartoon World';
+    return;
+  }
+
+  // Supports links using ?video=...&title=... from the homepage.
+  if (videoParam) {
+    const safeTitle = params.get('title') || 'Cartoon';
+    document.getElementById('title').textContent = safeTitle;
+    document.getElementById('description').textContent =
+      'Watch this cartoon on Cartoon World.';
+    showVideo(videoParam);
+    return;
+  }
+
+  showMessage('কার্টুন বেছে নিতে হোমপেজে ফিরে যাও।');
+}
+
+load();
+</script>
 </body>
 </html>
